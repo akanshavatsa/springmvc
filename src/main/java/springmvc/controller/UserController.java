@@ -11,6 +11,7 @@ import springmvc.service.UserServiceImpl;
 import springmvc.vo.User;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
 
@@ -18,7 +19,7 @@ public class UserController {
     IUserService userService;
 
     @RequestMapping(path = "/processform", method = RequestMethod.POST)
-    public  String handleForm(@ModelAttribute User user , Model model)
+    public  String handleForm(@ModelAttribute User user )
     {
 //controller talks with service always
         System.out.println(user);
