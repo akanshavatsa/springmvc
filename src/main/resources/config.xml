@@ -37,7 +37,6 @@
 
     <!-- Enable annotation-driven transactions -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
     <!-- DAO Bean -->
     <bean id="userDao" class="springmvc.dao.UserDao">
         <property name="sessionFactory" ref="sessionFactory"/>

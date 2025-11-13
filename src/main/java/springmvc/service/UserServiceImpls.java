@@ -8,7 +8,7 @@ import springmvc.utils.UserUtility;
 import springmvc.vo.User;
 
 @Component
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpls implements IUserService {
 
     //service always with DAO
 

@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springmvc.service.IUserService;
-import springmvc.service.UserServiceImpl;
+import springmvc.service.UserServiceImpls;
 import springmvc.vo.User;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserControllers {
 
 
     @Autowired
