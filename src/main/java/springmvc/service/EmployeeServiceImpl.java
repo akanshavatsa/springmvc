@@ -7,6 +7,8 @@ import springmvc.model.EmployeeEntity;
 import springmvc.utils.EmployeeUtility;
 import springmvc.vo.Employee;
 
+import java.util.List;
+
 @Component
 public class EmployeeServiceImpl  implements  IEmployeeService{
 
@@ -22,6 +24,21 @@ public class EmployeeServiceImpl  implements  IEmployeeService{
 
     @Override
     public EmployeeEntity update(Employee employee) {
-        return employeeDaoService.update(EmployeeUtility.getEmployeeEntity(employee));
+        return employeeDaoService.savaAndUpdate(EmployeeUtility.getEmployeeEntity(employee));
+    }
+
+    @Override
+    public EmployeeEntity delete(long id) {
+        return employeeDaoService.delete(id);
+    }
+
+    @Override
+    public EmployeeEntity getEmployeeById(long id) {
+        return employeeDaoService.getEmployeeById(id);
+    }
+
+    @Override
+    public List<EmployeeEntity> getAllEmployees() {
+        return employeeDaoService.getAllEmployees();
     }
 }

@@ -12,16 +12,18 @@
       </head>
       <body>
 
+
         <div class="container mt-5">
         <h2 class="text-center"> ${Header} </h2>
         <p2>  ${Desc} </p2>
-        <form action="processForm" method="post">
+        <form action="" method="post" id="employeeForm" >
+         <input type="hidden" id="id" name="id" value="${employee.id}">
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
             <input type="email"
             class="form-control"
             id="exampleInputEmail1"
-            aria-describedby="emailHelp" name="email">
+            aria-describedby="emailHelp" name="email" value="${employee.email}">
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
           </div>
 
@@ -31,7 +33,7 @@
                       class="form-control"
                       id="userName"
                       aria-describedby="emailHelp"
-                      name="userName">
+                      name="userName" value="${employee.userName}">
 
                     </div>
 
@@ -40,7 +42,7 @@
             <input type="text"
             class="form-control"
             id="projectName"
-            name="projectName">
+            name="projectName" value="${employee.projectName}">
           </div>
 
           <div class="mb-3">
@@ -49,7 +51,7 @@
                                 class="form-control"
                                 id="managerName"
                                 aria-describedby="emailHelp"
-                                name="managerName">
+                                name="managerName" value="${employee.managerName}">
 
                               </div>
 
@@ -59,6 +61,40 @@
           </div>
         </form>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script>
+          $(document).ready(function () {
+            $("#employeeForm").submit(function (e) {
+              e.preventDefault();
+              // stop normal form submit
+              var id=$("#id").val();
+              if(id=="")
+              {
+              $("#id").val(0);
+              }
+
+              $.ajax({
+                url: "http://localhost:8080/springmvc/employee/processForm",   // Spring controller mapping
+                type: "POST",
+                data: $(this).serialize(),     // serialize form inputs as query string
+                success: function (response) {
+                debugger;
+                  alert("Employee saved successfully!");
+                   if(response=="success")
+                  {
+                   window.location.href = '/springmvc/employee/getAllEmployees'
+                                          }
+                  // you can refresh DataTable or redirect if needed
+                },
+                error: function (xhr, status, error) {
+                  alert("Something went wrong: " + error);
+                }
+              });
+            });
+          });
+        </script>
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

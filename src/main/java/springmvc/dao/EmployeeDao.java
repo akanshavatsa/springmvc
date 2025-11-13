@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import springmvc.model.EmployeeEntity;
 import springmvc.vo.Employee;
 
+import java.util.List;
+
 @Component
 public class EmployeeDao implements IEmployeeDao{
 
@@ -32,13 +34,60 @@ public class EmployeeDao implements IEmployeeDao{
         return employee;
 
     }
+    @Override
+    @Transactional
+
+    public EmployeeEntity savaAndUpdate(EmployeeEntity employee) {
+        Session session= sessionFactory.getCurrentSession();
+
+
+            if (session.find(EmployeeEntity.class,employee.getId()) !=null)
+            {
+                System.out.println("merging");
+                session.merge(employee);
+
+            }
+            else {
+                System.out.println("add new user");
+                session.persist(employee);
+
+            }
+
+
+        return employee;
+
+    }
 
     @Override
     @Transactional
-    public EmployeeEntity update(EmployeeEntity employee) {
+    public  EmployeeEntity delete(long id )
+    {
         Session session= sessionFactory.getCurrentSession();
-        session.merge(employee);
-        return employee;
+        EmployeeEntity employeeEntity;
+        employeeEntity=session.find(EmployeeEntity.class,id);
+        if (employeeEntity !=null) {
 
+             session.remove(employeeEntity);
+             return employeeEntity;
+        }
+        else {
+            return null;
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public List<EmployeeEntity> getAllEmployees() {
+        Session session= sessionFactory.getCurrentSession();
+        return session.createQuery("from EmployeeEntity", EmployeeEntity.class).getResultList();
+
+    }
+
+    @Override
+    @Transactional
+    public EmployeeEntity getEmployeeById(long id) {
+        Session session= sessionFactory.getCurrentSession();
+        return session.find(EmployeeEntity.class,id);
     }
 }
